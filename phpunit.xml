@@ -10,13 +10,15 @@
 >
     <testsuites>
         <testsuite name="Unit">
-            <directory suffix="Test.php">./src/Tests/Unit</directory>
+            <directory suffix="Test.php">./tests/Unit</directory>
         </testsuite>
     </testsuites>
-
     <filter>
         <whitelist processUncoveredFilesFromWhitelist="true">
             <directory suffix=".php">./src/</directory>
         </whitelist>
     </filter>
+    <logging>
+        <log type="coverage-clover" target="./build/logs/clover.xml"/>
+    </logging>
 </phpunit>
