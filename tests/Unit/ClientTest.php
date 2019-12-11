@@ -7,6 +7,7 @@ use Walkerus\InfinityCallCenterApiClient\Client;
 use Walkerus\InfinityCallCenterApiClient\Exception\BadResponse;
 use Walkerus\InfinityCallCenterApiClient\Exception\ConnectionNotFound;
 use Walkerus\InfinityCallCenterApiClient\Exception\UserNotFound;
+use Walkerus\InfinityCallCenterApiClient\Models\UserState;
 use Walkerus\InfinityCallCenterApiClient\Test\Helper;
 
 class ClientTest extends TestCase
@@ -14,6 +15,7 @@ class ClientTest extends TestCase
     public function testGetUserState(): void
     {
         $expectedState = 399;
+        $expectedDescription = 'Offline';
         $guzzle = Helper::makeMockHttpGuzzleClient(
             json_encode([
                 'result' => [
@@ -24,7 +26,7 @@ class ClientTest extends TestCase
         );
         $client = new Client($guzzle);
 
-        $this->assertEquals($expectedState, $client->getUserState(1));
+        $this->assertEquals(new UserState($expectedState), $client->getUserState(1));
     }
 
     public function testGetUserStateUserNotFoundException(): void

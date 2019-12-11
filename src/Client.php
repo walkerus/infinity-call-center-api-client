@@ -6,6 +6,8 @@ use GuzzleHttp\Exception\ClientException as GuzzleClientException;
 use Walkerus\InfinityCallCenterApiClient\Exception\BadResponse;
 use Walkerus\InfinityCallCenterApiClient\Exception\ConnectionNotFound;
 use Walkerus\InfinityCallCenterApiClient\Exception\UserNotFound;
+use Walkerus\InfinityCallCenterApiClient\Models\UserState;
+use Walkerus\InfinityCallCenterApiClient\Models\UserStateInterface;
 
 class Client implements InfinityApiClientInterface
 {
@@ -18,12 +20,12 @@ class Client implements InfinityApiClientInterface
 
     /**
      * @param int $userId
-     * @return int
+     * @return UserStateInterface
      * @throws UserNotFound
      * @throws BadResponse
      * @throws \GuzzleHttp\Exception\GuzzleException
      */
-    public function getUserState(int $userId): int
+    public function getUserState(int $userId): UserStateInterface
     {
         try {
             $response = $this->client->request('get', '/user/getstate', [
@@ -42,18 +44,18 @@ class Client implements InfinityApiClientInterface
         $content = $response->getBody()->getContents();
         $userState = json_decode($content)->result->IDUserState ?? null;
 
-        if (is_null($userState)) {
+        if ($userState === null) {
             throw new BadResponse($content);
         }
 
-        return $userState;
+        return new UserState($userState);
     }
 
     /**
      * @param int $userId
      * @param string $number
      * @param int|null $tag
-     * @return int
+     * @return int Call id
      * @throws BadResponse
      * @throws \GuzzleHttp\Exception\GuzzleException
      */
@@ -64,7 +66,7 @@ class Client implements InfinityApiClientInterface
             'Number' => $number,
         ];
 
-        if (!is_null($tag)) {
+        if ($tag !== null) {
             $query['Tag'] = $tag;
         }
 
@@ -75,7 +77,7 @@ class Client implements InfinityApiClientInterface
         $content = $response->getBody()->getContents();
         $callId = json_decode($content)->result->IDCall ?? null;
 
-        if (is_null($callId)) {
+        if ($callId === null) {
             throw new BadResponse($content);
         }
 
@@ -84,7 +86,7 @@ class Client implements InfinityApiClientInterface
 
     /**
      * @param int $callId
-     * @return array
+     * @return array Array of connection ids
      * @throws BadResponse
      * @throws \GuzzleHttp\Exception\GuzzleException
      */
@@ -108,8 +110,8 @@ class Client implements InfinityApiClientInterface
 
     /**
      * @param int $connectionId
-     * @param string $codec
-     * @return string
+     * @param string $codec gsm|pcm|mp3
+     * @return string Content of voice file
      * @throws \GuzzleHttp\Exception\GuzzleException
      * @throws ConnectionNotFound
      */
@@ -119,7 +121,7 @@ class Client implements InfinityApiClientInterface
             'IDConnection' => $connectionId,
         ];
 
-        if (!is_null($codec)) {
+        if ($codec === null) {
             $query['codec'] = $codec;
         }
 
