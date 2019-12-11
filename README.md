@@ -1,7 +1,8 @@
 ### About
 Api client for [Infinity call center](https://www.inteltelecom.ru)
 
-[![Code Quality](https://img.shields.io/codacy/grade/8d3f114c909c4c548cc1f60a0b910bcc.svg?style=flat-square)](https://app.codacy.com/manual/walkerus/infinity-call-center-api-client)
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/cc97ce05a35a4ffaa216cd18f9df7a93)](https://www.codacy.com/manual/walkerus/infinity-call-center-api-client?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=walkerus/infinity-call-center-api-client&amp;utm_campaign=Badge_Grade)
+[![Codacy Badge](https://api.codacy.com/project/badge/Coverage/cc97ce05a35a4ffaa216cd18f9df7a93)](https://www.codacy.com/manual/walkerus/infinity-call-center-api-client?utm_source=github.com&utm_medium=referral&utm_content=walkerus/infinity-call-center-api-client&utm_campaign=Badge_Coverage)
 
 ### Usage
 
