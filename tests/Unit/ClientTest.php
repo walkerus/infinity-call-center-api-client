@@ -171,4 +171,17 @@ class ClientTest extends TestCase
         $client = new Client($guzzle);
         $client->getRecord(1);
     }
+
+    public function testMake(): void
+    {
+        $clientOptions = [
+            'base_uri' => 'foo',
+            'timeout' => 1,
+            'connect_timeout' => 1
+        ];
+        $expectedClient = new Client(new \GuzzleHttp\Client($clientOptions));
+        $client = Client::make(...(array_values($clientOptions)));
+
+        $this->assertEquals($expectedClient, $client);
+    }
 }
