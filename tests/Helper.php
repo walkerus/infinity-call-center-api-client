@@ -8,11 +8,11 @@ use GuzzleHttp\Psr7\Response;
 
 class Helper
 {
-    public static function makeMockGuzzle(string $message, int $status, string $requestExceptionClass = null): Client
+    public static function makeMockGuzzle(string $message, int $status, string $requestExClassName = null): Client
     {
-        $mockHandler = $requestExceptionClass === null
+        $mockHandler = $requestExClassName === null
             ? $mockHandler = new MockHandler([new Response($status, [], $message)])
-            : $mockHandler = new MockHandler([new $requestExceptionClass($message, new Request('get', '/'), new Response($status))]);
+            : $mockHandler = new MockHandler([new $requestExClassName($message, new Request('get', '/'), new Response($status))]);
 
         return new Client([
             'handler' => $mockHandler
