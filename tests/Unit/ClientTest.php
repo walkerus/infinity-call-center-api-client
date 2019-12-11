@@ -15,8 +15,7 @@ class ClientTest extends TestCase
     public function testGetUserState(): void
     {
         $expectedState = 399;
-        $expectedDescription = 'Offline';
-        $guzzle = Helper::makeMockHttpGuzzleClient(
+        $guzzle = Helper::makeMockGuzzle(
             json_encode([
                 'result' => [
                     'IDUserState' => $expectedState
@@ -33,7 +32,7 @@ class ClientTest extends TestCase
     {
         $this->expectException(UserNotFound::class);
 
-        $guzzle = Helper::makeMockHttpGuzzleClient(
+        $guzzle = Helper::makeMockGuzzle(
             json_encode([
                 'result' => [
                     'ErrorMessage' => 'User not found'
@@ -50,7 +49,7 @@ class ClientTest extends TestCase
     {
         $this->expectException(ClientException::class);
 
-        $guzzle = Helper::makeMockHttpGuzzleClient(
+        $guzzle = Helper::makeMockGuzzle(
             json_encode([
                 'result' => [
                     'ErrorMessage' => 'Some error'
@@ -67,7 +66,7 @@ class ClientTest extends TestCase
     {
         $this->expectException(BadResponse::class);
 
-        $guzzle = Helper::makeMockHttpGuzzleClient(
+        $guzzle = Helper::makeMockGuzzle(
             json_encode([
                 'result' => [
                     'IDUserStatee' => 1
@@ -82,7 +81,7 @@ class ClientTest extends TestCase
     public function testMakeCall(): void
     {
         $expectedCallId = 123;
-        $guzzle = Helper::makeMockHttpGuzzleClient(
+        $guzzle = Helper::makeMockGuzzle(
             json_encode([
                 'result' => [
                     'IDCall' => $expectedCallId
@@ -99,7 +98,7 @@ class ClientTest extends TestCase
     {
         $this->expectException(BadResponse::class);
 
-        $guzzle = Helper::makeMockHttpGuzzleClient(
+        $guzzle = Helper::makeMockGuzzle(
             json_encode([
                 'result' => [
                     'IDCalll' => 123
@@ -115,7 +114,7 @@ class ClientTest extends TestCase
     {
         $expectedConnections = [1, 2, 3];
 
-        $guzzle = Helper::makeMockHttpGuzzleClient(
+        $guzzle = Helper::makeMockGuzzle(
             json_encode([
                 'result' => [
                     'Connections' => $expectedConnections
@@ -140,7 +139,7 @@ class ClientTest extends TestCase
 
         $this->expectExceptionMessage($expectedMessage);
 
-        $guzzle = Helper::makeMockHttpGuzzleClient(
+        $guzzle = Helper::makeMockGuzzle(
             $expectedMessage,
             200
         );
@@ -151,7 +150,7 @@ class ClientTest extends TestCase
     public function testGetRecord(): void
     {
         $expectedString = 'some string';
-        $guzzle = Helper::makeMockHttpGuzzleClient(
+        $guzzle = Helper::makeMockGuzzle(
             $expectedString,
             200
         );
@@ -164,7 +163,7 @@ class ClientTest extends TestCase
     {
         $this->expectException(ConnectionNotFound::class);
 
-        $guzzle = Helper::makeMockHttpGuzzleClient(
+        $guzzle = Helper::makeMockGuzzle(
             'some string',
             406,
             ClientException::class
