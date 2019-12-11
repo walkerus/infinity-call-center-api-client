@@ -1,0 +1,24 @@
+language: php
+dist: xenial
+
+matrix:
+  include:
+    - php: 7.1
+    - php: nightly
+
+branches:
+  only:
+    - master
+
+cache:
+  directories:
+    - $HOME/.composer/cache/files
+
+install:
+  - travis_retry composer install --prefer-dist --no-interaction --no-suggest
+
+script:
+  - vendor/bin/phpunit
+
+after_success:
+  - vendor/bin/codacycoverage clover
