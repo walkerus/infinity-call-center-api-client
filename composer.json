@@ -1,0 +1,35 @@
+{
+    "name": "walkerus/infinity-call-center-api-client",
+    "description": "Api client for IntelTelecom Infinity call center - https://www.inteltelecom.ru",
+    "keywords": [
+        "library",
+        "php",
+        "api-client"
+    ],
+    "homepage": "https://github.com/walkerus/infinity-call-center-api-client",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Ruslan Isamukhametov",
+            "email": "zFireWolFz@yandex.ru"
+        }
+    ],
+    "require": {
+        "php": "^7.0",
+        "guzzlehttp/guzzle": "6.3.*"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^7.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Walkerus\\InfinityCallCenterApiClient\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Walkerus\\InfinityCallCenterApiClient\\Test\\": "tests"
+        }
+    }
+}
